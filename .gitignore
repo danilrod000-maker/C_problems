@@ -1,0 +1,14 @@
+# Файлы сборки C/C++
+*.exe
+*.o
+*.obj
+*.ilk
+*.pdb
+*.idb
+
+# Папки сборки
+bin/
+obj/
+build/
+Debug/
+Release/

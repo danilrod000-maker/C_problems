@@ -1,0 +1,119 @@
+#include <stdio.h>
+
+// Функция для вычисления абсолютного значения
+double abs_val(double x) {
+    return (x < 0) ? -x : x;
+}
+
+// Функция для вычисления квадратного корня (метод Ньютона)
+double sqrt_newton(double x) {
+    if (x < 0) return -1; // Ошибка для отрицательных чисел
+    if (x == 0) return 0;
+    
+    double guess = x;
+    double prev;
+    int iterations = 0;
+    
+    // Метод Ньютона для вычисления квадратного корня
+    do {
+        prev = guess;
+        guess = (guess + x / guess) / 2.0;
+        iterations++;
+    } while (abs_val(guess - prev) > 1e-10 && iterations < 100);
+    
+    return guess;
+}
+
+void solve_quadratic(double a, double b, double c) {
+    printf("\nУравнение: ");
+    
+    // Выводим уравнение в красивом формате
+    if (a != 0) {
+        printf("%.2fx²", a);
+        if (b > 0) printf(" + %.2fx", b);
+        else if (b < 0) printf(" - %.2fx", -b);
+        if (c > 0) printf(" + %.2f", c);
+        else if (c < 0) printf(" - %.2f", -c);
+    } else if (b != 0) {
+        printf("%.2fx", b);
+        if (c > 0) printf(" + %.2f", c);
+        else if (c < 0) printf(" - %.2f", -c);
+    } else {
+        printf("%.2f", c);
+    }
+    printf(" = 0\n");
+    
+    // Случай 1: a = 0, b = 0, c = 0
+    if (a == 0 && b == 0 && c == 0) {
+        printf("Бесконечно много решений (0 = 0)\n");
+        return;
+    }
+    
+    // Случай 2: a = 0, b = 0, c != 0
+    if (a == 0 && b == 0 && c != 0) {
+        printf("Нет решений (%.2f = 0)\n", c);
+        return;
+    }
+    
+    // Случай 3: a = 0, b != 0 (линейное уравнение)
+    if (a == 0) {
+        double x = -c / b;
+        printf("Линейное уравнение\n");
+        printf("x = %.6f\n", x);
+        return;
+    }
+    
+    // Случай 4: Квадратное уравнение (a != 0)
+    double discriminant = b * b - 4 * a * c;
+    printf("Дискриминант D = %.6f\n", discriminant);
+    
+    if (discriminant > 0) {
+        // Два различных действительных корня
+        double sqrt_d = sqrt_newton(discriminant);
+        double x1 = (-b + sqrt_d) / (2 * a);
+        double x2 = (-b - sqrt_d) / (2 * a);
+        printf("Два различных действительных корня:\n");
+        printf("x₁ = %.6f\n", x1);
+        printf("x₂ = %.6f\n", x2);
+        
+    } else if (discriminant == 0) {
+        // Один действительный корень (кратный)
+        double x = -b / (2 * a);
+        printf("Один действительный корень (кратный):\n");
+        printf("x = %.6f\n", x);
+        
+    } else {
+        // Комплексные корни
+        double real_part = -b / (2 * a);
+        double imag_part = sqrt_newton(-discriminant) / (2 * a);
+        
+        printf("Два комплексных сопряженных корня:\n");
+        
+        // Форматируем вывод в зависимости от знаков
+        if (imag_part < 0) imag_part = -imag_part; // Для красивого вывода
+        
+        if (real_part == 0) {
+            printf("x₁ = %.6fi\n", imag_part);
+            printf("x₂ = -%.6fi\n", imag_part);
+        } else {
+            printf("x₁ = %.6f + %.6fi\n", real_part, imag_part);
+            printf("x₂ = %.6f - %.6fi\n", real_part, imag_part);
+        }
+    }
+}
+
+int main() {
+    double a, b, c;
+    
+    printf("Решение квадратного уравнения ax² + bx + c = 0\n");
+    printf("Введите коэффициенты a, b, c: ");
+    
+    if (scanf("%lf %lf %lf", &a, &b, &c) != 3) {
+        printf("Ошибка ввода! Введите три числа.\n");
+        return 1;
+    }
+    
+    solve_quadratic(a, b, c);
+    
+    return 0;
+}
