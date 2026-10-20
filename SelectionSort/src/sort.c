@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stddef.h>   // для size_t
+#include <stddef.h>  
 
 static void swap(void *a, void *b, size_t size) {
     unsigned char *pa = (unsigned char *)a;
@@ -12,8 +12,7 @@ static void swap(void *a, void *b, size_t size) {
     }
 }
 
-void selection_sort(void *base, size_t n, size_t size,
-                    int (*cmp)(const void *, const void *)) {
+void selection_sort(void *base, size_t n, size_t size, int (*cmp)(const void *, const void *)) {
     if (n < 2) {
         return;
     }

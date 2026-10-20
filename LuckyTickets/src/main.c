@@ -2,23 +2,24 @@
 
 int main(void) {
     const long long total = 1000000LL;
+    long long sums[28] = {0};
     long long lucky = 0;
 
-    for (int n = 0; n <= 999999; ++n) {
-        int d1 = (n / 100000) % 10;
-        int d2 = (n / 10000) % 10;
-        int d3 = (n / 1000) % 10;
-        int d4 = (n / 100) % 10;
-        int d5 = (n / 10) % 10;
-        int d6 = n % 10;
+    for (int n = 0; n <= 999; ++n) {
+        int d1 = n / 100;
+        int d2 = (n / 10) % 10;
+        int d3 = n % 10;
+        
 
-        int sum1 = d1 + d2 + d3;
-        int sum2 = d4 + d5 + d6;
-
-        if (sum1 == sum2) {
-            lucky++;
-        }
+        sums[d1 + d2 + d3]++;
     }
+
+    
+    for (int s = 0; s <= 27; ++s){
+        lucky += sums[s]  * sums[s];
+
+    }
+    
 
     double percent = 100.0 * lucky / total;
 
