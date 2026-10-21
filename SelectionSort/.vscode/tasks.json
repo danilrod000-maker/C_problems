@@ -4,12 +4,7 @@
         {
             "label": "Build C Project",
             "type": "shell",
-            "command": "gcc",
-            "args": [
-                "src/*.c",
-                "-I", "include",
-                "-o", "build/main.exe"
-            ],
+            "command": "if (!(Test-Path build)) { New-Item -ItemType Directory build | Out-Null }; gcc src/cmp.c src/main.c src/sort.c tests/test.c -I include -o build/main.exe -Wall -Wextra",
             "group": {
                 "kind": "build",
                 "isDefault": true
