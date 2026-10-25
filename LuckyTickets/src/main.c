@@ -28,4 +28,4 @@ int main(void) {
     printf("percent of lucky: %.4f%%\n", percent);
 
     return 0;
-}
+} // 12312
