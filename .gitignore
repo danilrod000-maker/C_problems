@@ -1,0 +1,26 @@
+# Файлы сборки C/C++
+*.exe
+*.out
+*.obj
+*.o
+*.pdb
+*.ilk
+*.idb
+*.exp
+*.lib
+*.a
+*.so
+*.dll
+*.dylib
+
+# Файлы IDE и окружения
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+*.vcxproj*
+
+# Прочее
+.DS_Store
+Thumbs.db
