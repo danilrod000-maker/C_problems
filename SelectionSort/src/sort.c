@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stddef.h>   // для size_t
+#include <stddef.h>
 
 static void swap(void *a, void *b, size_t size) {
     unsigned char *pa = (unsigned char *)a;
@@ -18,22 +18,22 @@ void selection_sort(void *base, size_t n, size_t size,
         return;
     }
 
+    char *base_ptr = (char *)base;
+
     for (size_t i = 0; i < n - 1; ++i) {
         size_t min_elem_ind = i;
+        char *min_elem = base_ptr + i * size;
+        char *cur_elem = base_ptr + (i + 1) * size;
 
-        for (size_t j = i + 1; j < n; ++j) {
-            void *min_elem = (char *)base + min_elem_ind * size;
-            void *cur_elem = (char *)base + j * size;
-
+        for (size_t j = i + 1; j < n; ++j, cur_elem += size) {
             if (cmp(min_elem, cur_elem) > 0) {
                 min_elem_ind = j;
+                min_elem = cur_elem;
             }
         }
 
         if (min_elem_ind != i) {
-            swap((char *)base + i * size,
-                 (char *)base + min_elem_ind * size,
-                 size);
+            swap(base_ptr + i * size, min_elem, size);
         }
     }
 }
