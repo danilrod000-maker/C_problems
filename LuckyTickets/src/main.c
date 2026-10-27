@@ -1,9 +1,8 @@
 #include <stdio.h>
 
 int main(void) {
-    const int total = 1000000;
-    int lucky = 0;
-    
+    const unsigned int total = 1000000;
+    unsigned int lucky = 0;
     int sum_counts[28] = {0};
 
     for (int n = 0; n <= 999; ++n) {
@@ -15,14 +14,13 @@ int main(void) {
         sum_counts[sum]++;
     }
 
-    for (int s = 0; s <= 27; ++s) {
-        lucky += sum_counts[s] * sum_counts[s];
+    for (int s = 0; s <= 13; ++s) {
+        lucky += 2 * sum_counts[s] * sum_counts[s];
     }
+    float percent = 100.0 * lucky / total;
 
-    double percent = 100.0 * lucky / total;
-
-    printf("lucky tickets: %d\n", lucky);
-    printf("all tickets: %d\n", total);
+    printf("lucky tickets: %u\n", lucky);
+    printf("all tickets: %u\n", total);
     printf("percent of lucky: %.4f%%\n", percent);
 
     return 0;
