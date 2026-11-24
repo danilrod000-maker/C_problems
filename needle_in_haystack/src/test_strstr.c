@@ -20,6 +20,9 @@ int main(void){
     assert(my_strstr("hi", "hello") == -1);
     assert(my_strstr("", "hi") == -1);
     assert(my_strstr("", "") == -1);
+    assert(my_strstr(NULL, "sadasf") == -1);
+    assert(my_strstr("asffar", NULL) == -1);
+    assert(my_strstr(NULL, NULL) == -1);
     printf("All tests passed.\n");
 
     return 0;

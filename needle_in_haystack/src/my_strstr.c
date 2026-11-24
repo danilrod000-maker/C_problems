@@ -30,6 +30,10 @@ static void build_good_suffix(const char *needle, size_t n,
 }
 
 ptrdiff_t my_strstr(const char *haystack, const char *needle){
+    if (haystack == NULL || needle == NULL) {
+        return (ptrdiff_t)-1;
+    }
+
     size_t text_len   = strlen(haystack);
     size_t needle_len = strlen(needle);
 
